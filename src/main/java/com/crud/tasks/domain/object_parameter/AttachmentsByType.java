@@ -1,4 +1,4 @@
-package com.crud.tasks.domain.parameter_object;
+package com.crud.tasks.domain.object_parameter;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
