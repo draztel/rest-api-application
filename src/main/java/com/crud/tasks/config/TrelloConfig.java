@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class TrelloConfig {
+
     @Value("${trello.username}")
     private String trelloUsername;
 
