@@ -22,4 +22,13 @@ public class TrelloBoardDto {
 
     @JsonProperty("lists")
     private List<TrelloListDto> lists;
+
+    @Override
+    public String toString() {
+        return "TrelloBoardDto{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", lists=" + lists +
+                '}';
+    }
 }
