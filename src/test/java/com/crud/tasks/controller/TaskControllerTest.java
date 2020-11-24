@@ -89,9 +89,7 @@ public class TaskControllerTest {
     @Test
     public void shouldDeleteTest() throws Exception {
         //Given
-        Task task = new Task(1l, "title", "content");
-        Long id = task.getId();
-
+        //When & Then
         mockMvc.perform(delete("/v1/task/deleteTask")
         .param("id", "1"))
                 .andExpect(status().isOk());
