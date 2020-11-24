@@ -108,7 +108,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
 
-        //Then & when
+        //When & Then
         mockMvc.perform(post("/v1/task/createTask")
         .contentType(MediaType.APPLICATION_JSON)
         .characterEncoding("UTF-8")
@@ -129,7 +129,7 @@ public class TaskControllerTest {
         Gson gson = new Gson();
         String jsonContent = gson.toJson(taskDto);
 
-        //Then & when
+        //When & Then
         mockMvc.perform(put("/v1/task/updateTask")
                 .contentType(MediaType.APPLICATION_JSON)
                 .characterEncoding("UTF-8")
