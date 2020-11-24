@@ -87,7 +87,7 @@ public class TaskControllerTest {
     }
 
     @Test
-    public void shouldDeleteTest() throws Exception {
+    public void shouldDeleteTask() throws Exception {
         //Given
         //When & Then
         mockMvc.perform(delete("/v1/task/deleteTask")
