@@ -25,17 +25,26 @@ public class SimpleEmailServiceTest {
     @Test
     public void shouldSendEmail() {
         //Given
-        Mail mail = new Mail("test@test.com", "Test", "Test Message");
+        Mail mail1 = new Mail("test@test.com", "Test", "Test Message", "test@test.pl");
+        Mail mail2 = new Mail("test@test.com", "Test", "Test Message");
 
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(mail.getMailTo());
-        mailMessage.setSubject(mail.getSubject());
-        mailMessage.setText(mail.getMessage());
+        SimpleMailMessage mailMessage1 = new SimpleMailMessage();
+        mailMessage1.setTo(mail1.getMailTo());
+        mailMessage1.setSubject(mail1.getSubject());
+        mailMessage1.setText(mail1.getMessage());
+        mailMessage1.setCc(mail1.getToCc());
+
+        SimpleMailMessage mailMessage2 = new SimpleMailMessage();
+        mailMessage2.setTo(mail2.getMailTo());
+        mailMessage2.setSubject(mail2.getSubject());
+        mailMessage2.setText(mail2.getMessage());
 
         //When
-        simpleEmailService.send(mail);
+        simpleEmailService.send(mail1);
+        simpleEmailService.send(mail2);
 
         //Then
-        verify(javaMailSender, times(1)).send(mailMessage);
+        verify(javaMailSender, times(1)).send(mailMessage1);
+        verify(javaMailSender, times(1)).send(mailMessage2);
     }
 }

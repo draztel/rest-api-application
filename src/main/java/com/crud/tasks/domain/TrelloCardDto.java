@@ -4,23 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class TrelloCardDto {
-
     private String name;
     private String description;
     private String pos;
     private String listId;
-
-    @Override
-    public String toString() {
-        return "TrelloCardDto{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", pos='" + pos + '\'' +
-                ", listId='" + listId + '\'' +
-                '}';
-    }
 }

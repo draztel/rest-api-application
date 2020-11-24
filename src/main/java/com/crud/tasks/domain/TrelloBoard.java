@@ -11,13 +11,4 @@ public class TrelloBoard {
     private String id;
     private String name;
     private List<TrelloList> lists;
-
-    @Override
-    public String toString() {
-        return "TrelloBoard{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", lists=" + lists +
-                '}';
-    }
 }
