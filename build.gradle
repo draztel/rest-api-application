@@ -23,6 +23,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-mail:2.3.5.RELEASE')
 	compile('com.google.code.gson:gson:2.8.2')
 	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	//compile('org.postgresql:postgresql')
 	annotationProcessor 'org.projectlombok:lombok:1.18.12'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
