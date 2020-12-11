@@ -5,13 +5,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
+
+import javax.mail.internet.MimeMessage;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SimpleEmailServiceTest {
@@ -21,6 +24,9 @@ public class SimpleEmailServiceTest {
 
     @Mock
     private JavaMailSender javaMailSender;
+
+    @Mock
+    private MimeMessage mimeMessage;
 
     @Test
     public void shouldSendEmail() {
@@ -40,8 +46,8 @@ public class SimpleEmailServiceTest {
         mailMessage2.setText(mail2.getMessage());
 
         //When
-        simpleEmailService.send(mail1);
-        simpleEmailService.send(mail2);
+        simpleEmailService.send(mail1, "SimpleMailMessage");
+        simpleEmailService.send(mail2, "SimpleMailMessage");
 
         //Then
         verify(javaMailSender, times(1)).send(mailMessage1);

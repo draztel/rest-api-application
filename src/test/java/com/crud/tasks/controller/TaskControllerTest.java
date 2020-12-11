@@ -91,7 +91,7 @@ public class TaskControllerTest {
         //Given
         //When & Then
         mockMvc.perform(delete("/v1/task/deleteTask")
-        .param("id", "1"))
+        .param("taskId", "1"))
                 .andExpect(status().isOk());
 
     }

@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.MimeMessage;
+
 @Service
 public class SimpleEmailService {
 
@@ -25,11 +27,17 @@ public class SimpleEmailService {
     public SimpleEmailService() {
     }
 
-    public void send(final Mail mail) {
+    public void send(final Mail mail, String EMAIL_TYPE) {
         LOGGER.info("Starting email preparation...");
         try {
-            javaMailSender.send(createMimeMessage(mail));
-            LOGGER.info("Email has been sent.");
+            switch(EMAIL_TYPE) {
+                case "MimeMessage":
+                    javaMailSender.send(createMimeMessage(mail));
+                case "SimpleMailMessage":
+                    SimpleMailMessage mailMessage = createMailMessage(mail);
+                    javaMailSender.send(mailMessage);
+            }
+                LOGGER.info("Email has been sent.");
         } catch (MailException e) {
             LOGGER.error("Failed to process email sending: ", e.getMessage(), e);
         }
