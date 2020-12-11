@@ -2,6 +2,7 @@ package com.crud.tasks.service;
 
 import com.crud.tasks.config.ActuatorConfig;
 import com.crud.tasks.config.AdminConfig;
+import com.crud.tasks.controller.TaskController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class MailCreatorService {
 
     @Autowired
     private AdminConfig adminConfig;
+
+    @Autowired
+    private TaskController taskController;
 
     @Autowired
     @Qualifier("templateEngine")
@@ -39,6 +43,19 @@ public class MailCreatorService {
         context.setVariable("show_button", false);
         context.setVariable("is_friend", false);
         context.setVariable("admin_config", adminConfig);
+        context.setVariable("application_functionality", functionality);
         return templateEngine.process("mail/created-trello-card-mail", context);
+    }
+
+    public String buildScheduledTasksInformationEmail(String message) {
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("preview_message", "Scheduled tasks information");
+        context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend");
+        context.setVariable("tasks_size", taskController.getTasks().size());
+        context.setVariable("button", "Visit website");
+        context.setVariable("goodbye", "Goodbye :)");
+        context.setVariable("admin_name", adminConfig.getAdminName());
+        return templateEngine.process("mail/scheduled-tasks-information-email", context);
     }
 }

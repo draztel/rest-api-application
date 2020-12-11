@@ -27,15 +27,23 @@ public class SimpleEmailService {
     public SimpleEmailService() {
     }
 
-    public void send(final Mail mail, String EMAIL_TYPE) {
+    public void send(final Mail mail, String EMAIL_TYPE, String EMAIL_TEMPLATE) {
         LOGGER.info("Starting email preparation...");
         try {
             switch(EMAIL_TYPE) {
-                case "MimeMessage":
-                    javaMailSender.send(createMimeMessage(mail));
                 case "SimpleMailMessage":
-                    SimpleMailMessage mailMessage = createMailMessage(mail);
-                    javaMailSender.send(mailMessage);
+                    if(EMAIL_TEMPLATE.equals("default")) {
+                        SimpleMailMessage mailMessage = createMailMessage(mail);
+                        javaMailSender.send(mailMessage);
+                    }
+                    break;
+                case "MimeMessage":
+                    if(EMAIL_TEMPLATE.equals("BuildTrelloCardEmail")) {
+                        javaMailSender.send(createMimeMessage(mail, "BuildTrelloCardEmail"));
+                    } else {
+                        javaMailSender.send(createMimeMessage(mail, "BuildScheduledTasksInformationEmail"));
+                    }
+                    break;
             }
                 LOGGER.info("Email has been sent.");
         } catch (MailException e) {
@@ -43,12 +51,16 @@ public class SimpleEmailService {
         }
     }
 
-    private MimeMessagePreparator createMimeMessage(final Mail mail) {
+    private MimeMessagePreparator createMimeMessage(final Mail mail, String EMAIL_TEMPLATE) {
         return mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setTo(mail.getMailTo());
             messageHelper.setSubject(mail.getSubject());
-            messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            if (EMAIL_TEMPLATE.equals("BuildTrelloCardEmail")) {
+                messageHelper.setText(mailCreatorService.buildTrelloCardEmail(mail.getMessage()), true);
+            } else {
+                    messageHelper.setText(mailCreatorService.buildScheduledTasksInformationEmail(mail.getMessage()), true);
+            }
         };
     }
 

@@ -46,8 +46,8 @@ public class SimpleEmailServiceTest {
         mailMessage2.setText(mail2.getMessage());
 
         //When
-        simpleEmailService.send(mail1, "SimpleMailMessage");
-        simpleEmailService.send(mail2, "SimpleMailMessage");
+        simpleEmailService.send(mail1, "SimpleMailMessage", "default");
+        simpleEmailService.send(mail2, "SimpleMailMessage", "default");
 
         //Then
         verify(javaMailSender, times(1)).send(mailMessage1);
